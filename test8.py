@@ -97,8 +97,7 @@ import random
  # Assuming test10 contains your recommendation logic
 
 bot = telebot.TeleBot('6512147049:AAESCJzL2NByQ5FvvCSGgfVTUcpUbxKKAiM')
-Parameters = []
-Final=[]
+
 
 facts = [
     "The first movie ever made is often considered to be 'Roundhay Garden Scene,' created by Louis Le Prince in 1888. It's only about 2.11 seconds long. 🎥",
@@ -251,6 +250,8 @@ def chat_mode(message):
 
 
 # Command handler
+Parameters=[]
+Final=[]
 
 @bot.message_handler(commands=['recommend'])
 def get_title(message):
