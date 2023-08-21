@@ -1,89 +1,6 @@
 
 
-# import telebot
-# from telebot import types
-# import test10  # Assuming test10 contains your recommendation logic
 
-# bot = telebot.TeleBot('6512147049:AAESCJzL2NByQ5FvvCSGgfVTUcpUbxKKAiM')  # Replace with your actual bot token
-
-# # Global variables
-# Parameters = []
-# Final=[]
-
-# # Command handlers
-# @bot.message_handler(commands=['start'])
-# def greetings(message):
-#     bot.send_message(message.chat.id, "Welcome!! Type '/info' for more information")
-
-# @bot.message_handler(commands=['recommend'])
-# def get_title(message):
-#     global Parameters
-#     title_input = bot.send_message(message.chat.id, "What are your top movies? (Enter titles separated by commas)")
-#     Parameters.append(message.text)
-
-#     bot.register_next_step_handler(title_input, ask_language)
-
-# def ask_language(message):
-#     global Parameters
-#     markup = types.ReplyKeyboardRemove(selective=False)
-#     language_input = bot.send_message(message.chat.id, "Which Language Movie do You Want?", reply_markup=markup)
-#     Parameters.append(message.text)
-#     bot.register_next_step_handler(language_input, ask_preference)
-
-# def ask_preference(message):
-#     global Parameters
-
-#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     preference_options = ["Genre", "Actor", "Director"]
-#     markup.add(*preference_options)
-#     preference_reply = bot.send_message(message.chat.id, "Choose a preference:\n0: Genre\n1: Actor\n2: Director", reply_markup=markup)
-#     bot.register_next_step_handler(preference_reply, ask_specific_preference)
-
-# def ask_specific_preference(message):
-#     global Parameters
-#     choice=int(message.text)
-#     Parameters.append(choice)
-
-#     preference_input = None
-#     if choice == 0:
-#         preference_input = bot.send_message(message.chat.id, "Enter your preferred genre:")
-#         Parameters.append(message.text)
-#     elif choice== 1:
-#         preference_input = bot.send_message(message.chat.id, "Enter your favorite actor:")
-#         Parameters.append(message.text)
-#     elif choice == 2:
-#         preference_input = bot.send_message(message.chat.id, "Enter your favorite director:")
-#         Parameters.append(message.text)
-#     bot.register_next_step_handler(preference_input, show_results)
-
-# def show_results(message):
-#     global Parameters
-    
-#     # Perform movie recommendation using your logic
-#     recommendations = test10.get_recs(Parameters[0], Parameters[1], Parameters[2], Parameters[3], test10, test10.tfidf_df)
-#     for i in Parameters:
-#         bot.send_message(message.chat.id, i)
-        
-
-#     # Send recommendations to the user
-#     # bot.send_message(message.chat.id, "Here are your Recommendations:")
-#     # for movie in recommendations:
-#     #     bot.send_message(message.chat.id, movie)
-    
-#     # Send recommendations using rec_titles if needed
-#     # for movie_title in rec_titles:
-#     #     bot.send_message(message.chat.id, movie_title)
-
-# @bot.message_handler(commands=['info'])
-# def introduce(message):
-#     bot.send_message(message.chat.id, "Commands:\nRecommend: '/recommend'\nHelp: '/help'\nSkip Question: '/skip'")
-
-# @bot.message_handler(commands=['about'])
-# def about(message):
-#     bot.send_message(message.chat.id, "Hello!! I am a Movie Recommendation System presented by Team Dristhi!!")
-
-# bot.infinity_polling()
-  
 
 
 
@@ -145,7 +62,6 @@ gifs = [
 ]
 
 Parameters=["Par1", "Par2", "Par3", "Par4", "Par5", "Par6"]
-Final= []
 chat_mode_active = False
 
 @bot.message_handler(commands=['start'])
@@ -250,9 +166,8 @@ def chat_mode(message):
 
 
 # Command handler
-Parameters=[]
+Parameters = []
 Final=[]
-
 @bot.message_handler(commands=['recommend'])
 def get_title(message):
     global Parameters
@@ -276,7 +191,7 @@ def ask_preference(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     preference_options = ["Genre", "Actor", "Director"]
     markup.add(*preference_options)
-    preference_reply = bot.send_message(message.chat.id, "Select a Preference:", reply_markup=markup)
+    preference_reply = bot.send_message(message.chat.id, "For Genre: 0 \nFor Actor: 1\nFor Director: 2", reply_markup=markup)
     bot.register_next_step_handler(preference_reply, ask_specific_preference)
 
 def ask_specific_preference(message):
@@ -306,6 +221,7 @@ def show_results(message):
     
     for i in Parameters[1:]:
         Final.append(i)
+
     recommendations,recommendations2 = test10.get_recs(Final[0], Final[1], Final[2], Final[3], test10.movies, test10.tfidf_df)
     
         
@@ -315,12 +231,14 @@ def show_results(message):
     bot.send_message(message.chat.id, "Here are your Recommendations:")
     for movie in recommendations:
         bot.send_message(message.chat.id, movie)
+    
+    # for movie_title in test10.rec_titles:
+    #     bot.send_message(message.chat.id, movie_title)
 
     bot.send_message(message.chat.id, "Here are your Recommendations:")
     for movie in recommendations2:
         bot.send_message(message.chat.id, movie)
     
-    # Send recommendations using rec_titles if needed
     # for movie_title in test10.rec_titles:
     #     bot.send_message(message.chat.id, movie_title)
 
@@ -336,131 +254,3 @@ bot.infinity_polling()
 
 
 
-# import telebot
-# from telebot import types
-# import test10  # Assuming test10 contains your recommendation logic
-
-# bot = telebot.TeleBot('6512147049:AAESCJzL2NByQ5FvvCSGgfVTUcpUbxKKAiM')  # Replace with your actual bot token
-
-# # Global variables
-# Final=[]
-# Parameters=[]
-
-# # Command handlers
-# @bot.message_handler(commands=['start'])
-
-# def greetings(message):
-#     bot.send_message(message.chat.id, "Welcome!!\nType '/info' for more Information!")
-
-# @bot.message_handler(commands=['recommend'])
-
-# def get_title(message):
-#     global Parameters
-    
-#     Parameters.append(message.text)
-#     title_input = bot.send_message(message.chat.id, "What are your top movies? (Enter titles separated by commas)")
-   
-
-#     bot.register_next_step_handler(title_input, ask_language)
-
-# def ask_language(message):
-#     global Parameters
-#     # Parameters.append(message.text) 
-#     if message.text=="English":
-#         Parameters.append('en')
-#     elif message.text=="French":
-#         Parameters.append('fr')
-#     elif message.text=="Italian":
-#         Parameters.append('it')
-#     elif message.text=="Japanese":
-#         Parameters.append('ja')
-#     elif message.text=="German":
-#         Parameters.append('de')
-#     elif message.text=="Spanish":
-#         Parameters.append('es')
-#     elif message.text=="Russian":
-#         Parameters.append('ru')
-#     elif message.text=="Hindi":
-#         Parameters.append('hi')
-#     elif message.text=="Korean":
-#         Parameters.append('ko')
-#     elif message.text=="Chinese":
-#         Parameters.append('zh')
-#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True) # Store the input from the user
-#     languages = ["English", "French", "Italian", "Japanese", "German", "Spanish", "Russian", "Hindi", "Korean", "Chinese"]
-#     markup.add(*languages)
-#     language_input = bot.send_message(message.chat.id, "Which Language Movie do You Want?", reply_markup=markup)
-#     bot.register_next_step_handler(language_input, ask_preference)
-
-# def ask_preference(message):
-#     global Parameters
-#     Parameters.append(message.text)  # Store the input from the user
-#     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
-#     preference_options = ["Genre", "Actor", "Director"]
-#     markup.add(*preference_options)
-#     preference_reply = bot.send_message(message.chat.id, "Select a Preference:", reply_markup=markup)
-#     bot.register_next_step_handler(preference_reply, ask_specific_preference)
-
-# def ask_specific_preference(message):
-    
-#     global Parameters
-#     choice=-1
-
-#     if message.text=='Genre':
-#         choice= 0
-#     elif message.text=='Actor':
-#         choice=1
-#     elif message.text=='Director':
-#         choice=2
-
-#     Parameters.append(choice)
-
-#     preference_input = None
-#     if choice == 0:
-#         preference_input = bot.send_message(message.chat.id, "Enter your preferred genre:")
-#     elif choice== 1:
-#         preference_input = bot.send_message(message.chat.id, "Enter your favorite actor:")
-#     elif choice == 2:
-#         preference_input = bot.send_message(message.chat.id, "Enter your favorite director:")
-
-#     bot.register_next_step_handler(preference_input, process_specific_preference)
-
-# def process_specific_preference(message):
-
-#     global Parameters
-#     Parameters.append(message.text)  # Store the input from the user
-#     show_results(message)  # Call the show_results function after collecting all the inputs
-
-# def show_results(message):
-
-#     global Parameters
-#     # Perform movie recommendation using your logic
-    
-#     for i in Parameters:
-#         Final.append(i)
-#     for i in Final:
-#         bot.send_message(message.chat.id,i)
-
-#     # recommendations,recommendations2 = test10.get_recs(Final[0], Final[1], Final[2], Final[3], test10.movies, test10.tfidf_df)
-    
-        
-#     # # Send recommendations to the user
-#     # bot.send_message(message.chat.id, "Here are your Recommendations:")
-#     # for movie in recommendations:
-#     #     bot.send_message(message.chat.id, movie)
-#     # bot.send_message(message.chat.id, "Here are your Recommendations:")
-    
-    
-
-#     # for movie in recommendations2:
-#     #     bot.send_message(message.chat.id, movie)
-    
-#     # Send recommendations using rec_titles if needed
-#     # for movie_title in test10.rec_titles:
-#     #     bot.send_message(message.chat.id, movie_title)
-
-# @bot.message_handler(commands=['info'])
-# def introduce(message):
-#     bot.send_message(message.chat.id, "Commands:\nRecommend: '/recommend'\nSkip Question: '/skip'")
-
-# bot.infinity_polling()
